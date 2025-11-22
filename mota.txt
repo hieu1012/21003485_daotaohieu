@@ -1,0 +1,68 @@
+## VÍ DỤ CỤ THỂ - QUẢN LÝ KHÓA HỌC VÀ GIẢNG VIÊN
+
+### Mối quan hệ:
+- Mỗi Khóa học có thể được giảng dạy bởi nhiều Giảng viên
+- Mỗi Giảng viên có thể dạy nhiều Khóa học (N-N)
+
+### Bảng 1: courses
+| STT | Tên cột | Kiểu dữ liệu | Mô tả |
+|-----|---------|--------------|-------|
+| 1   | id      | INT (PK, AI) | Mã khóa học |
+| 2   | course_code | VARCHAR(20) | Mã khóa học (VD: CS101) |
+| 3   | course_name | VARCHAR(100) | Tên khóa học |
+| 4   | credit  | INT          | Số tín chỉ |
+
+### Bảng 2: lecturers
+| STT | Tên cột | Kiểu dữ liệu | Mô tả |
+|-----|---------|--------------|-------|
+| 1   | id      | INT (PK, AI) | Mã giảng viên |
+| 2   | lecturer_code | VARCHAR(20) | Mã GV (VD: LEC001) |
+| 3   | lecturer_name | VARCHAR(100) | Tên giảng viên |
+| 4   | email   | VARCHAR(100) | Email |
+| 5   | department | VARCHAR(100) | Khoa/Bộ môn |
+
+### Bảng quan hệ: lecturer_course
+| STT | Tên cột | Kiểu dữ liệu | Mô tả |
+|-----|---------|--------------|-------|
+| 1   | lecturer_id | INT (FK → lecturers.id) | Giảng viên |
+| 2   | course_id | INT (FK → courses.id) | Khóa học |
+
+### CHỨC NĂNG:
+1. **Thống kê**: Hiển thị danh sách khóa học với số lượng Giảng viên
+2. **Xem danh sách**: Xem danh sách Giảng viên theo Khóa học
+3. **Thêm mới**: Thêm Khóa học mới với validation
+4. **Xóa**: Xóa Khóa học (chỉ được phép xóa khi chưa có Giảng viên)
+
+Database name: course_management
+Module name: courses
+Package: iuh.fit
+
+---
+
+**Yêu cầu**: Hãy tạo đầy đủ các file code theo cấu trúc trên với:
+
+1. **pom.xml** - Maven configuration với dependencies cho Thymeleaf
+2. **application.properties** - Cấu hình database và Thymeleaf
+3. **Entity classes** (Course.java, Lecturer.java) với relationships
+4. **Repository interfaces** (CourseRepository.java, LecturerRepository.java)
+5. **DTO classes** (CourseDTO.java, LecturerDTO.java) với validation annotations
+6. **Service layer** (CourseService.java + Impl, LecturerService.java + Impl)
+7. **Controller** (CourseController.java) với các endpoints
+8. **Exception classes** (ResourceNotFoundException, BadRequestException, GlobalExceptionHandler)
+9. **Thymeleaf templates**:
+   - templates/common/header.html (navbar)
+   - templates/common/footer.html
+   - templates/courses/list.html (hiển thị danh sách khóa học + số GV)
+   - templates/courses/form.html (form thêm khóa học)
+   - templates/courses/lecturers.html (danh sách GV theo khóa học)
+10. **SQL script** - Tạo database và insert dữ liệu mẫu
+
+**Lưu ý quan trọng**:
+- Tất cả dependency injection dùng Constructor (KHÔNG dùng @Autowired hay @RequiredArgsConstructor)
+- Viết constructor thủ công cho tất cả Controller và Service
+- Package name: iuh.fit
+- User GitHub: hieu1012
+- Bootstrap 5.3.0 cho UI
+- Form validation với Bean Validation
+- Flash messages cho success/error
+- Confirmation dialog trước khi xóa
