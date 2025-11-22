@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giảng viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Danh sách Giảng viên - <span th:text="${course.courseName}"></span></h2>
+
+    <p><strong>Mã khóa học:</strong> <span th:text="${course.courseCode}"></span></p>
+    <p><strong>Số tín chỉ:</strong> <span th:text="${course.credit}"></span></p>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Mã GV</th>
+            <th>Tên giảng viên</th>
+            <th>Email</th>
+            <th>Khoa/Bộ môn</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lecturer : ${lecturers}">
+            <td th:text="${lecturer.lecturerCode}"></td>
+            <td th:text="${lecturer.lecturerName}"></td>
+            <td th:text="${lecturer.email}"></td>
+            <td th:text="${lecturer.department}"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(lecturers)}">
+            <td colspan="4" class="text-center">Chưa có giảng viên nào</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/courses" class="btn btn-secondary">Quay lại</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
